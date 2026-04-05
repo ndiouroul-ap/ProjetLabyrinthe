@@ -1,3 +1,9 @@
+/**
+ * Résout un labyrinthe avec l'algorithme DFS (Depth First Search) récursif.
+ * Compte le nombre d'étapes explorées et le temps d'exécution.
+ */
+
+
 package model;
 
 import java.util.*;
@@ -6,6 +12,11 @@ public class SolveurDFS {
     private int etapes;
     private long tempsExecution;
     private List<int[]> chemin;
+
+/**
+     * Lance la résolution et mesure le temps d'exécution.
+     * @param laby le labyrinthe à résoudre
+     */
 
     public SolveurDFS(Labyrinthe laby) {
         etapes = 0;
@@ -25,6 +36,11 @@ public class SolveurDFS {
             chemin = new ArrayList<>(cheminCourant);
         }
     }
+
+/**
+     * Parcours récursif en profondeur.
+     * @return true si un chemin est trouvé
+     */
 
     private boolean dfs(char[][] grille, int x, int y, int endX, int endY, 
                         boolean[][] visite, List<int[]> cheminCourant, int lignes, int colonnes) {

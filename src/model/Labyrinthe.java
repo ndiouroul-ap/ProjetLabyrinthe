@@ -1,3 +1,10 @@
+/**
+ * Représente un labyrinthe sous forme d'une matrice de caractères.
+ * Contient les positions de départ (S) et d'arrivée (E).
+ * Permet d'afficher le labyrinthe et de marquer un chemin avec '+'.
+ */
+
+
 package model;
 
 import java.util.List;

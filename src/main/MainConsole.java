@@ -5,6 +5,12 @@ import utils.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Point d'entrée de la version console.
+ * Propose le chargement d'un fichier ou la génération aléatoire,
+ * puis compare DFS et BFS.
+ */
+
 public class MainConsole {
     public static void main(String[] args) {
         System.out.println("=== RÉSOLUTION DE LABYRINTHE ===\n");

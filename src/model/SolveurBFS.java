@@ -2,11 +2,23 @@ package model;
 
 import java.util.*;
 
+/**
+ * Résout un labyrinthe à l'aide de l'algorithme BFS (Breadth-First Search).
+ * BFS garantit de trouver le chemin le plus court en nombre de cases.
+ * Cette classe mesure également le nombre d'étapes explorées et le temps d'exécution.
+ */
+
 public class SolveurBFS {
     private int etapes;
     private long tempsExecution;
     private List<int[]> chemin;
-
+/**
+     * Constructeur qui lance immédiatement la résolution du labyrinthe donné.
+     * Mesure le temps d'exécution et stocke le résultat.
+     * 
+     * param laby le labyrinthe à résoudre 
+     */
+    
     public SolveurBFS(Labyrinthe laby) {
         etapes = 0;
         chemin = null;
@@ -14,6 +26,14 @@ public class SolveurBFS {
         resoudre(laby);
         tempsExecution = System.nanoTime() - debut;
     }
+
+ /**
+     * Exécute l'algorithme BFS à partir du départ jusqu'à la sortie.
+     * Utilise une file (Queue) pour explorer les cases niveau par niveau.
+     * Un tableau parent permet de reconstruire le chemin une fois la sortie atteinte.
+     * 
+     * param laby le labyrinthe à résoudre
+     */
 
     private void resoudre(Labyrinthe laby) {
         char[][] grille = laby.getGrille();
@@ -71,8 +91,38 @@ public class SolveurBFS {
         }
     }
 
+
+
+/**
+     * Retourne le chemin trouvé par BFS.
+     * 
+     * return une liste de paires [x, y] représentant le chemin de S à E,
+     *         ou null si aucun chemin n'existe.
+     */
+
     public List<int[]> getChemin() { return chemin; }
+
+/**
+     * Retourne le nombre total de cases visitées pendant la recherche.
+     * 
+     * return nombre d'étapes explorées
+     */
+
     public int getEtapes() { return etapes; }
+
+  /**
+     * Retourne le temps d'exécution de la résolution en nanosecondes.
+     * 
+     * return temps en nanosecondes
+     */
+
     public long getTempsExecution() { return tempsExecution; }
+
+ /**
+     * Indique si BFS a trouvé un chemin.
+     * 
+     * return true si un chemin existe, false sinon
+     */
+
     public boolean aTrouve() { return chemin != null; }
 }
