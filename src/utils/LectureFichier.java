@@ -4,6 +4,13 @@ import model.Labyrinthe;
 import java.io.*;
 import java.util.*;
 
+/**
+ Utilitaire de lecture de labyrinthe depuis un fichier texte. La méthode lit un fichier ligne par ligne,
+ ignore les lignes vides, vérifie que toutes les lignes non vides ont la même longueur, puis construit une grille 2D
+ de caractères ('#', '=', 'S', 'E') et retourne un objet. Si le fichier est vide ou mal formé
+ (lignes de longueurs différentes), une {@link IOException} est levée.
+ */
+
 public class LectureFichier {
     public static Labyrinthe charger(String cheminFichier) throws IOException {
         List<String> lignes = new ArrayList<>();

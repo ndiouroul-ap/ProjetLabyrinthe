@@ -1,6 +1,6 @@
 /**
- * Résout un labyrinthe avec l'algorithme DFS (Depth First Search) récursif.
- * Compte le nombre d'étapes explorées et le temps d'exécution.
+ Résout un labyrinthe avec l'algorithme DFS (Depth First Search) récursif.
+ Compte le nombre d'étapes explorées et le temps d'exécution.
  */
 
 
@@ -13,11 +13,8 @@ public class SolveurDFS {
     private long tempsExecution;
     private List<int[]> chemin;
 
-/**
-     * Lance la résolution et mesure le temps d'exécution.
-     * @param laby le labyrinthe à résoudre
-     */
 
+     //Lance la résolution et mesure le temps d'exécution.
     public SolveurDFS(Labyrinthe laby) {
         etapes = 0;
         chemin = null;
@@ -26,6 +23,7 @@ public class SolveurDFS {
         tempsExecution = System.nanoTime() - debut;
     }
 
+    // Lance la recherche DFS et stocke le chemin trouvé.
     private void resoudre(Labyrinthe laby) {
         char[][] grille = laby.getGrille();
         boolean[][] visite = new boolean[laby.getLignes()][laby.getColonnes()];
@@ -37,11 +35,7 @@ public class SolveurDFS {
         }
     }
 
-/**
-     * Parcours récursif en profondeur.
-     * @return true si un chemin est trouvé
-     */
-
+// Parcours récursif DFS avec backtracking. Retourne true si un chemin est trouvé.
     private boolean dfs(char[][] grille, int x, int y, int endX, int endY, 
                         boolean[][] visite, List<int[]> cheminCourant, int lignes, int colonnes) {
         etapes++;

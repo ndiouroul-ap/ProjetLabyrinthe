@@ -14,6 +14,11 @@ public class FenetreGraphique extends JFrame {
     private JTextArea infoArea;
     private final int TAILLE_CELLULE = 30;
     
+
+/**
+ Constructeur de la fenêtre principale.
+ Initialise le titre, la taille, la position, le menu et les composants graphiques, puis rend la fenêtre visible.
+ */    
     public FenetreGraphique() {
         setTitle("Résolveur de Labyrinthe");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,6 +31,13 @@ public class FenetreGraphique extends JFrame {
         setVisible(true);
     }
     
+
+/**
+ Crée la barre de menu avec deux menus :
+ - "Fichier" : Charger labyrinthe, Générer aléatoire, Quitter
+ - "Résoudre" : DFS, BFS
+ Associe chaque action à sa méthode correspondante via des expressions lambda.
+ */
     private void initMenu() {
         JMenuBar menuBar = new JMenuBar();
         JMenu fichierMenu = new JMenu("Fichier");
@@ -61,6 +73,13 @@ public class FenetreGraphique extends JFrame {
         setJMenuBar(menuBar);
     }
     
+/**
+ Initialise les composants graphiques principaux :
+ - grillePanel : panneau personnalisé pour dessiner le labyrinthe case par case
+ - JScrollPane pour la grille (scroll si nécessaire)
+ - infoArea : zone de texte non éditable affichant les résultats des résolutions
+ La disposition est BorderLayout (centre pour la grille, est pour les infos).
+ */    
     private void initComponents() {
         setLayout(new BorderLayout());
         
@@ -83,7 +102,18 @@ public class FenetreGraphique extends JFrame {
         infoArea.setEditable(false);
         add(new JScrollPane(infoArea), BorderLayout.EAST);
     }
-    
+ 
+
+    /**
+ Dessine le labyrinthe dans le panneau grillePanel.
+ Chaque case est représentée par un carré de TAILLE_CELLULE pixels.
+ Couleurs :
+ - Mur (#) : noir
+ - Départ (S) : vert avec lettre S noire
+ - Sortie (E) : rouge avec lettre E noire
+ - Chemin (+) : bleu
+ - Passage (par défaut) : blanc avec contour gris
+ */
     private void dessinerGrille(Graphics g) {
         char[][] grille = labyrinthe.getGrille();
         int lignes = labyrinthe.getLignes();
@@ -129,6 +159,13 @@ public class FenetreGraphique extends JFrame {
         grillePanel.repaint();
     }
     
+
+ /**
+ Ouvre un dialogue de sélection de fichier (filtre .txt dans le dossier "labyrinthes").
+ Charge le labyrinthe sélectionné via LectureFichier.charger().
+ Met à jour l'affichage et affiche un message dans infoArea.
+ En cas d'erreur (fichier invalide), affiche une boîte de dialogue d'erreur.
+ */   
     private void chargerLabyrinthe() {
         JFileChooser chooser = new JFileChooser("labyrinthes");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Fichiers texte", "txt");
@@ -145,7 +182,14 @@ public class FenetreGraphique extends JFrame {
             }
         }
     }
+
     
+/**
+ Demande à l'utilisateur le nombre de lignes et de colonnes via des boîtes de dialogue.
+ Génère un labyrinthe aléatoire résoluble grâce à GenerationAleatoire.generer().
+ Met à jour l'affichage et affiche les dimensions dans infoArea.
+ En cas de saisie invalide, affiche une boîte d'erreur.
+ */    
     private void genererLabyrinthe() {
         String lignes = JOptionPane.showInputDialog(this, "Nombre de lignes :", "10");
         String colonnes = JOptionPane.showInputDialog(this, "Nombre de colonnes :", "10");
@@ -161,6 +205,14 @@ public class FenetreGraphique extends JFrame {
         }
     }
     
+
+/**
+ Résout le labyrinthe courant avec DFS.
+ Vérifie d'abord qu'un labyrinthe est chargé ou généré.
+ Crée une copie du labyrinthe, exécute SolveurDFS, puis marque le chemin sur la copie.
+ Remplace le labyrinthe courant par la copie (pour afficher le chemin).
+ Affiche les résultats (longueur, étapes, temps) dans infoArea.
+ */    
     private void resoudreDFS() {
         if (labyrinthe == null) {
             JOptionPane.showMessageDialog(this, "Chargez ou générez d'abord un labyrinthe");
@@ -181,7 +233,13 @@ public class FenetreGraphique extends JFrame {
             infoArea.append("\nDFS : Aucun chemin trouvé\n");
         }
     }
+  
     
+/**
+ Résout le labyrinthe courant avec BFS.
+ Même principe que resoudreDFS() mais avec SolveurBFS.
+ BFS garantit le chemin le plus court en nombre de cases.
+ */    
     private void resoudreBFS() {
         if (labyrinthe == null) {
             JOptionPane.showMessageDialog(this, "Chargez ou générez d'abord un labyrinthe");
@@ -202,7 +260,12 @@ public class FenetreGraphique extends JFrame {
             infoArea.append("\nBFS : Aucun chemin trouvé\n");
         }
     }
+  
     
+/**
+ Point d'entrée de l'application graphique.
+ Utilise SwingUtilities.invokeLater() pour garantir un bon fonctionnement sur toutes les plateformes (thread de l'EDT).
+ */    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new FenetreGraphique());
     }
